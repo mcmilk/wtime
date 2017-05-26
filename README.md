@@ -15,32 +15,62 @@
  Report bugs to: https://github.com/mcmilk/wtime/issues
 ```
 
-## Sample Output
+## Sample Outputs
 
+For one thread:
 ```
-Command: = 7z a -mmt=off lala.7z silesia
+Command: = 7z a lala.7z -mmt=1 -mx15 silesia
 
 TIMES in seconds
-RunningTime = 3.806;
-UserTime    = 2.028;
-KernelTime  = 0.172;
+RunningTime = 66.757
+UserTime    = 65.349
+KernelTime  = 0.406
 
 MEMORY in KiB
-PageFaultCount             = 25
-PeakWorkingSetSize         = 9688
+PageFaultCount             = 110
+PeakWorkingSetSize         = 34620
 WorkingSetSize             = 20
 QuotaPeakPagedPoolUsage    = 95
 QuotaPagedPoolUsage        = 0
-QuotaPeakNonPagedPoolUsage = 5
+QuotaPeakNonPagedPoolUsage = 6
 QuotaNonPagedPoolUsage     = 0
 PagefileUsagee             = 0
-PeakPagefileUsage          = 11576
+PeakPagefileUsage          = 39644
 
 IO ops
-ReadOperationCount  = 129
-WriteOperationCount = 109
-OtherOperationCount = 150
-ReadTransferCount   = 211939017
-WriteTransferCount  = 67500037
-OtherTransferCount  = 4272
+ReadOperationCount  = 78
+WriteOperationCount = 34
+OtherOperationCount = 147
+ReadTransferCount   = 211939183
+WriteTransferCount  = 58488626
+OtherTransferCount  = 4032
+```
+
+For two threads:
+```
+Command: = 7z a lala.7z -mmt=2 -mx15 silesia
+
+TIMES in seconds
+RunningTime = 35.847
+UserTime    = 64.662
+KernelTime  = 0.624
+
+MEMORY in KiB
+PageFaultCount             = 114
+PeakWorkingSetSize         = 69692
+WorkingSetSize             = 20
+QuotaPeakPagedPoolUsage    = 95
+QuotaPagedPoolUsage        = 0
+QuotaPeakNonPagedPoolUsage = 7
+QuotaNonPagedPoolUsage     = 0
+PagefileUsagee             = 0
+PeakPagefileUsage          = 89532
+
+IO ops
+ReadOperationCount  = 78
+WriteOperationCount = 34
+OtherOperationCount = 223
+ReadTransferCount   = 211939180
+WriteTransferCount  = 58488626
+OtherTransferCount  = 4408
 ```
