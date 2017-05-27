@@ -27,9 +27,12 @@ static void panic(char *errmsg)
 
 static void usage(void)
 {
-	printf("\n Usage: wtime COMMAND [OPTIONS]"
+	printf("\n",
+	       "\n wtime version 1.0a"
+	       "\n Copyright (c) 2017 Tino Reichardt"
 	       "\n"
-	       "\n Copyright (c) 2017 Tino Reichardt" "\n"
+	       "\n"
+	       "\n Usage: wtime COMMAND [OPTIONS]"
 	       "\n"
 	       "\n The program will start COMMAND with the given OPTIONS"
 	       "\n and print out some statistic of it to stderr."
@@ -106,9 +109,10 @@ int main(int argc, char *argv[])
 	/**
 	 * print summary about the infos
 	 */
-	fprintf(stderr, "Command: = %s\n", cmdline);
+	fprintf(stderr, "Command: %s\n", cmdline);
 
-	/* https://msdn.microsoft.com/en-us/library/windows/desktop/ms683223(v=vs.85).aspx
+	/**
+	 * https://msdn.microsoft.com/en-us/library/windows/desktop/ms683223(v=vs.85).aspx
 	 *
 	 * typedef struct _FILETIME {
 	 *  DWORD dwLowDateTime;
@@ -131,18 +135,19 @@ int main(int argc, char *argv[])
 	    userTime.dwLowDateTime;
 	Exit64 -= Create64;
 
-	#define _SECOND (10000000)
+	#define _MILLISECOND (10000)
 	fprintf(stderr,
-		"\nTIMES in seconds"
-		"\nRunningTime = %.3f"
-		"\nUserTime    = %.3f"
-		"\nKernelTime  = %.3f"
+		"\nTIMES in milliseconds"
+		"\nRunningTime................. %llu"
+		"\nUserTime.................... %llu"
+		"\nKernelTime.................. %llu"
 		"\n",
-		(double)Exit64 / _SECOND,
-		(double)User64 / _SECOND,
-		(double)Kernel64 / _SECOND);
+		Exit64 / _MILLISECOND,
+		User64 / _MILLISECOND,
+		Kernel64 / _MILLISECOND);
 
-	/* https://msdn.microsoft.com/en-us/library/windows/desktop/ms683219(v=vs.85).aspx
+	/**
+	 * https://msdn.microsoft.com/en-us/library/windows/desktop/ms683219(v=vs.85).aspx
 	 *
 	 * typedef struct _PROCESS_MEMORY_COUNTERS {
 	 *   DWORD  cb;
@@ -161,15 +166,15 @@ int main(int argc, char *argv[])
 	#define _KB (1024)
 	fprintf(stderr,
 		"\nMEMORY in KiB"
-		"\nPageFaultCount             = %llu"
-		"\nPeakWorkingSetSize         = %llu"
-		"\nWorkingSetSize             = %llu"
-		"\nQuotaPeakPagedPoolUsage    = %llu"
-		"\nQuotaPagedPoolUsage        = %llu"
-		"\nQuotaPeakNonPagedPoolUsage = %llu"
-		"\nQuotaNonPagedPoolUsage     = %llu"
-		"\nPagefileUsagee             = %llu"
-		"\nPeakPagefileUsage          = %llu"
+		"\nPageFaultCount.............. %llu"
+		"\nPeakWorkingSetSize.......... %llu"
+		"\nWorkingSetSize.............. %llu"
+		"\nQuotaPeakPagedPoolUsage..... %llu"
+		"\nQuotaPagedPoolUsage......... %llu"
+		"\nQuotaPeakNonPagedPoolUsage.. %llu"
+		"\nQuotaNonPagedPoolUsage...... %llu"
+		"\nPagefileUsage............... %llu"
+		"\nPeakPagefileUsage........... %llu"
 		"\n",
 		(ULONGLONG)memCounters.PageFaultCount / _KB,
 		(ULONGLONG)memCounters.PeakWorkingSetSize / _KB,
@@ -181,7 +186,8 @@ int main(int argc, char *argv[])
 		(ULONGLONG)memCounters.PagefileUsage / _KB,
 		(ULONGLONG)memCounters.PeakPagefileUsage / _KB);
 
-	/* https://msdn.microsoft.com/de-de/library/windows/desktop/ms683218(v=vs.85).aspx
+	/**
+	 * https://msdn.microsoft.com/de-de/library/windows/desktop/ms683218(v=vs.85).aspx
 	 *
 	 * typedef struct _IO_COUNTERS {
 	 *   ULONGLONG ReadOperationCount;
@@ -194,19 +200,20 @@ int main(int argc, char *argv[])
 	 */
 
 	fprintf(stderr,
-		"\nIO ops"
-		"\nReadOperationCount  = %llu"
-		"\nWriteOperationCount = %llu"
-		"\nOtherOperationCount = %llu"
-		"\nReadTransferCount   = %llu"
-		"\nWriteTransferCount  = %llu"
-		"\nOtherTransferCount  = %llu"
+		"\nIO count"
+		"\nReadOperationCount.......... %llu"
+		"\nWriteOperationCount......... %llu"
+		"\nOtherOperationCount......... %llu"
+		"\nReadTransferCount........... %llu"
+		"\nWriteTransferCount.......... %llu"
+		"\nOtherTransferCount.......... %llu"
 		"\n",
 		ioCounters.ReadOperationCount,
 		ioCounters.WriteOperationCount,
 		ioCounters.OtherOperationCount,
 		ioCounters.ReadTransferCount,
-		ioCounters.WriteTransferCount, ioCounters.OtherTransferCount);
+		ioCounters.WriteTransferCount,
+		ioCounters.OtherTransferCount);
 
 	/* free resources and exit */
 	free(cmdline);
