@@ -2,10 +2,11 @@
 ## Information given by the help option
 
 ```
- Usage: wtime COMMAND [OPTIONS]
-
+ wtime version 1.0a
  Copyright (c) 2017 Tino Reichardt
 
+
+ Usage: wtime COMMAND [OPTIONS]
 
  The program will start COMMAND with the given OPTIONS
  and print out some statistic of it to stderr.
