@@ -27,7 +27,7 @@ static void panic(char *errmsg)
 
 static void usage(void)
 {
-	printf("\n",
+	printf("\n"
 	       "\n wtime version 1.0a"
 	       "\n Copyright (c) 2017 Tino Reichardt"
 	       "\n"
